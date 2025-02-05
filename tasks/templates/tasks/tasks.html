@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+Задачи
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 20px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4">Сортировка:</h2>
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                <i class="bi bi-sort-down"></i> Сортировка
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="?order_by=-priority">По важности ▼</a></li>
+                <li><a class="dropdown-item" href="?order_by=priority">По важности ▲</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="?order_by=-deadline">По сроку ▼</a></li>
+                <li><a class="dropdown-item" href="?order_by=deadline">По сроку ▲</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for task in tasks %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.title }} | {{ task.get_priority_display }}</h5>
+                    <p class="card-text text-muted">{{ task.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <small class="text-muted">{{ task.deadline|date:"d M Y" }}</small>
+                    </div>
+                    <div class="btn-group w-100">
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-check-circle"></i> Выполнено
+                        </a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i> Изменить
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
