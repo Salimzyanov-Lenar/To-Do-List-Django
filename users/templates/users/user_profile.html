@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+Профиль
+{% endblock %}
+
+{% block content %}
+<h1> {{user.get_username}} </h1>
+<img class="w-32 h-32 md:h-auto rounded-full" src="{{ user.profile.image.url }}">
+{% endblock %}

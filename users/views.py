@@ -1,4 +1,5 @@
 from django.contrib.auth.views import LoginView
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect
@@ -10,6 +11,10 @@ from django.db import IntegrityError
 
 
 User = get_user_model()
+
+
+class UserProfileView(TemplateView):
+    template_name = 'users/user_profile.html'
 
 
 class UserLoginView(LoginView):
