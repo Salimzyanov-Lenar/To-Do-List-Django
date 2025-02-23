@@ -1,13 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
+from tasks.models import Profile
+from .services import check_image_size
 
 
 User = get_user_model()
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
-
     class Meta:
         model = User
         fields = ("email", "password1", "password2")
@@ -30,3 +31,19 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label="Email")
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+        widgets = {
+            'image': forms.FileInput(attrs={'class': 'form-control'})
+        }
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if not check_image_size(image):
+                raise forms.ValidationError(f"Размер изображения превышает 1024 КБ")
+        return image

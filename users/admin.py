@@ -1,5 +1,5 @@
 from django.contrib import admin
-from users.models import Profile
+from tasks.models import Profile
 
 
 admin.site.register(Profile)

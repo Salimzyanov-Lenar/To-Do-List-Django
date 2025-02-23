@@ -41,11 +41,11 @@
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            {{ user.username }}
+            {{ user.email }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
             <li><a class="dropdown-item" href="{% url 'profile_page' %}">Профиль</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
           </ul>
         </li>
         {% else %}
