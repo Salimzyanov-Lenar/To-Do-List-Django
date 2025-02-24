@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block header %}
-Задачи
+<title>Задачи</title>
 {% endblock %}
 
 {% block content %}
@@ -23,6 +24,13 @@
     </div>
 
     <div class="row g-4">
+        {% if not tasks %}
+        <div class="position-relative">
+            <div class="position-absolute top-100 start-50 translate-middle" style="margin-top: 100px;">
+                <h2 class="animated-text">Задач пока нет</h2>
+            </div>
+        </div>
+        {% endif %}
         {% for task in tasks %}
         <div class="col-md-6 col-lg-4">
             <div class="card shadow-sm h-100">
