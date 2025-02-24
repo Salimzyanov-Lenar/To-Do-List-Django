@@ -3,7 +3,7 @@ from .models import Task
 
 
 class TaskForm(ModelForm):
-    """ Форма для создания заметки """
+    """ Форма для создания / редактирования заметки """
     class Meta:
         model = Task
         fields = ['title', 'description', 'priority', 'deadline']

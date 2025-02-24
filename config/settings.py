@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import logging
 
 
 load_dotenv()
@@ -8,8 +9,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG', "False") == "True"
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -32,26 +32,43 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
 ]
 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            "format": "[%(asctime)s] \"%(levelname)s\" %(funcName)s %(message)s",
+            "datefmt": "%d/%m/%Y %H:%M:%S",
+        },
+    },
     'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
         'file': {
-            'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'users_app_log.log',
+            'filename': 'logs/django.log',
+            'formatter': 'verbose',
         },
     },
     'loggers': {
-        'users' : {
-                'handlers': ['file'],
-                'level': 'INFO',
-                'propagate': True,
+        'tasks': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'users': {  # Имя вашего приложения
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
         },
     },
 }
 
 
+# Prettier Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 

@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, UserManager, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 class CustomUserManager(BaseUserManager):
     """
-    UserManager создающий пользователя с email
+    UserManager создающий пользователя с email как с главным полем
     """
     def create_user(self, email, password=None, **extra_fields):
         if not email:

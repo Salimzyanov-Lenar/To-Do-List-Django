@@ -1,16 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import get_user_model
 from tasks.models import Profile
-from .services import check_image_size
+from users.models import CustomUser
+from users.services import check_image_size
 
-
-User = get_user_model()
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:
-        model = User
+        model = CustomUser
         fields = ("email", "password1", "password2")
         widgets = {
             "password1": forms.PasswordInput(attrs={"autocomplete": "new-password"}),
@@ -36,7 +34,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ('image',)
         widgets = {
             'image': forms.FileInput(attrs={'class': 'form-control'})
         }

@@ -14,24 +14,45 @@ class Task(models.Model):
         (3, 'High')
     ]
 
-    user = models.ForeignKey(User, verbose_name='Создатель задачи', on_delete=models.CASCADE)
-    title = models.CharField(verbose_name='Название задачи', max_length=255)
-    description = models.TextField(verbose_name='Описание задачи')
-    priority = models.IntegerField(verbose_name='Приоритет задачи', choices=TASK_PRIORITY)
-    created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
-    deadline = models.DateTimeField(verbose_name='Срок выполнения', null=True, blank=True)
+    user = models.ForeignKey(
+        to=User,
+        verbose_name='Создатель задачи',
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(
+        verbose_name='Название задачи',
+        max_length=255,
+    )
+    description = models.TextField(
+        verbose_name='Описание задачи',
+    )
+    priority = models.IntegerField(
+        verbose_name='Приоритет задачи',
+        choices=TASK_PRIORITY,
+    )
+    created_at = models.DateTimeField(
+        verbose_name='Дата создания',
+        auto_now_add=True,
+    )
+    deadline = models.DateTimeField(
+        verbose_name='Срок выполнения',
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.title
 
 
 def upload_to(instance, filename):
+    """ Функция для определения пути загрузки фотографий профиля """
     today = datetime.today().strftime('%Y/%m/%d')
     filename = os.path.basename(filename)
     return f'profile_pics/{today}/{filename}'
 
 
 class Profile(models.Model):
+    """ Дополнительная модель один к одному к User для хранения фотографии пользователя """
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to=upload_to)
 

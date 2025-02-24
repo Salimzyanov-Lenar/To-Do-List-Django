@@ -7,7 +7,12 @@
 {% block content %}
 <div class="container">
     <div class="text-center py-5">
-        <img class="img-thumbnail img-fluid" width="400px" src="{{ user.profile.image.url }}" alt="Изображение профиля">
+        <img class="img-thumbnail img-fluid"
+             width="400px"
+             height="400px"
+             src="{{ user.profile.image.url }}"
+             alt="Изображение профиля"
+        >
         <h2> {{user.email}} </h2>
     </div>
 
