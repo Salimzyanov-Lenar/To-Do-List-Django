@@ -103,20 +103,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': os.getenv('DATABASE_NAME'),
-    #     'USER': os.getenv('DATABASE_USER'),
-    #     'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-    #     'HOST': os.getenv('DATABASE_HOST'),
-    #     'PORT': os.getenv('DATABASE_PORT'),
-    # }
-
-    # Sqlite3
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
+
+    # # Sqlite3
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -162,7 +162,8 @@ STATICFILES_DIRS = [
 ]
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "mediafiles"
 MEDIA_URL = '/media/'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
