@@ -14,6 +14,7 @@ COPY . .
 
 RUN python manage.py collectstatic --noinput
 
+
 RUN chmod +x /app/entrypoint.sh
 
 RUN mkdir -p /app/mediafiles
