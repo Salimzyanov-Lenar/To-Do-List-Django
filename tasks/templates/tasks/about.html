@@ -6,5 +6,84 @@
 
 
 {% block content %}
-Информация о проекте
+<div id="typewriter-container">
+    <div id="typewriter" class="typewriter"></div>
+</div>
+
+<script>
+function typeEffect(element, text, speed = 50) {
+    let i = 0;
+    element.innerHTML = '';
+    element.style.borderRight = '3px solid white';
+
+    function typeWriter() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            element.style.borderRight = 'none';
+            addGithubLink();
+        }
+    }
+    typeWriter();
+}
+
+// Добавляем ссылку на GitHub после завершения печати
+function addGithubLink() {
+    const container = document.getElementById('typewriter');
+    const link = document.createElement('a');
+    link.href = "https://github.com/Salimzyanov-Lenar/To-Do-List-Django";
+    link.textContent = "\n👨‍💻 Исходный код доступен на GitHub";
+    link.style.display = "block";
+    link.style.marginTop = "15px";
+    link.style.color = "#3498db";
+    link.style.textDecoration = "none";
+    link.style.fontWeight = "bold";
+    link.style.fontSize = "16px";
+    link.target = "_blank";
+    container.appendChild(link);
+}
+
+// Запуск анимации при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    const text = "📃 To-Do List — удобный инструмент для управления задачами!\n\n✒️ Создавайте, редактируйте и устанавливайте дедлайны. \n\n⌨️ Основной библиотекой для серверной части выбран Django, в качестве базы данных PostgreSQL.\n\n⚙️ Деплой проекта был сделан с помощью Docker, docker-compose и nginx. Стили созданы с помощью Bootstrap.\n\n";
+    typeEffect(document.getElementById('typewriter'), text);
+});
+</script>
+
+<style>
+/* Анимация мигающего курсора */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* Контейнер для блока */
+#typewriter-container {
+    background-color: #2C3E50; /* Темно-синий фон */
+    color: #ECF0F1; /* Светлый текст */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 650px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+/* Стили для печатающегося текста */
+.typewriter {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    animation: blink 0.7s steps(1) infinite;
+    text-align: left;
+    min-height: 3em;
+    padding: 10px;
+}
+</style>
+
+
 {% endblock %}
