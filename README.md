@@ -11,7 +11,3 @@
 - PostgreSQL
 - Docker
 - Bootstrap
-
-
-Сайт: http://188.120.241.157 (https добавится в ближайшее время)
-
